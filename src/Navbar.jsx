@@ -1,7 +1,10 @@
-export default function Navbar(){
+export default function Navbar() {
 
     return (
-    <h1>this is the Navbar Component</h1>
+        <>
+
+            <h1>this is the Navbar Component</h1>
+        </>
     )
 } 
 
