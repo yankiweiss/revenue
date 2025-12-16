@@ -17,6 +17,7 @@ app.use(express.json())
 app.use(cors())
 
 
+
 app.use('/register', registerRouter)
 app.use('/patients', patientsRouter);
 
