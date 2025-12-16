@@ -6,6 +6,7 @@ import patientsRouter from './routes/api/patients.js'
 import cors from 'cors'
 import registerRouter from "./routes/register.js";
 
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,20 +17,15 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
-
-
-app.use('/register', registerRouter)
+app.use('/api/register', registerRouter)
 app.use('/patients', patientsRouter);
-
-
-dotenv.config();
 
 app.use(express.static(path.join(__dirname, "client", "src")));
 
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server Running on ${PORT}`);
+  });
+}
 
-
-
-
-app.listen(PORT, () => {
-  console.log(`Server Ruining on ${PORT}`);
-});
+export default (req, res) => app(req, res);
