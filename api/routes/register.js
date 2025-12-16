@@ -6,7 +6,7 @@ import { handleNewUser, handleSingIns, getAllCurrentUsers } from '../controllers
 
 
 registerRouter
-.get('/', verifyJWT ,getAllCurrentUsers)
+.get('/',getAllCurrentUsers)
 
 .post('/', handleNewUser)
 .post('/login', handleSingIns)
