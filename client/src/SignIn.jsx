@@ -41,7 +41,7 @@ function SignIn({ onLoginSuccess, onSignUpPressed }) {
       <form
         className="d-flex flex-column align-items-center"
         onSubmit={handleForm}
-        style={{ marginTop: "50px" }}
+        style={{ marginTop: "150px" }}
       >
         <div className="mb-3 w-25">
           <label htmlFor="email" className="form-label">
