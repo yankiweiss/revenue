@@ -30,7 +30,9 @@ const handleNewUser = async (req, res) => {
       [user, hashedPwd]
     );
 
-    res.status(201).json({ success: `New user ${user} was created` });
+
+
+    res.status(201).json({ message: `New user ${user} was created` });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
