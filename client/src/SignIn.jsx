@@ -10,7 +10,7 @@ function SignIn({onLoginSuccess}) {
     let formData = new FormData(form);
     let formObjectData = Object.fromEntries(formData.entries());
 
-    fetch("https://revenue-two.vercel.app/api/register/login", {
+    fetch("/api/register/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
