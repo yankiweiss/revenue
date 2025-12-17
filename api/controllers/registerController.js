@@ -38,6 +38,7 @@ const handleNewUser = async (req, res) => {
 };
 
 const handleSingIns = async (req, res) => {
+  try{
   const { user, pwd } = req.body;
   if (!user || !pwd)
     return res
@@ -51,12 +52,17 @@ const handleSingIns = async (req, res) => {
 
   const foundUser = result.rows[0];
 
-  if (!foundUser)
+  if (!foundUser){
     return res.status(401).json({ message: "Your Username is not found!" });
+  }
 
   const match = await bcrypt.compare(pwd, foundUser.password);
 
-  if (match) {
+  if(!match) {
+    return res.status(401).json({message: 'Invalid Credentials'})
+  }
+
+  
     const accessToken = jwt.sign(
       { username: foundUser.username },
       process.env.ACCESS_TOKEN_SECRET,
@@ -69,9 +75,7 @@ const handleSingIns = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    if(!match){
-      return res.status(401).json({message : 'Invalid Credentials'})
-    }
+    
 
 
     await dataBasePool.query(
@@ -81,9 +85,13 @@ const handleSingIns = async (req, res) => {
 
     //res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24* 60 * 60 * 1000})
 
-    return res.status(200)
+    return res.status(200).json({message : 'Successful Login', accessToken})
+  }catch(err){
+    console.error('LOGIN ERROR', err)
+    return res.status(500).json({message : 'Server error'})
+
   }
-};
+  };
 
 const getAllCurrentUsers = async (req, res) => {
   const result = await dataBasePool.query("SELECT * FROM users");
