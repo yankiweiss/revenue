@@ -6,7 +6,7 @@ function Table() {
   const [patientsData, setPatientsData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3500/patients")
+    fetch("api/patients")
       .then((res) => {
         return res.json();
       })
