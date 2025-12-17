@@ -12,4 +12,4 @@ registerRouter
 
 
 
-export default registerRouter
+export default registerRouter;
