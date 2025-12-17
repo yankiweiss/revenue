@@ -19,6 +19,10 @@ app.use(cors())
 
 app.use(express.static(path.join(__dirname, "client", "src")));
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'src', 'index.js'))
+})
+
 app.use('/api/register', registerRouter)
 app.use('/patients', patientsRouter);
 
