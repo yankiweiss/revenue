@@ -1,15 +1,17 @@
 import React from "react";
 import Header from "./Header";
-import { SignIn } from "./SignIn";
+import Navbar from './Navbar';
+
+
 
 function App() {
   return (
     <>
       <Header />
-      {/*<Navbar />*/}
+      <Navbar />
       {/*<Table />*/}
       {/*<UploadExcel />*/}
-      <SignIn />
+      {/*<SignIn />*/}
 
       {/* need to still workout the below */}
       {/*<User />*/}
