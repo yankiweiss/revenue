@@ -71,6 +71,8 @@ function SignUp() {
           </div>
         </div>
 
+         {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
+
         <div className="d-flex justify-content-between w-25">
           <button type="submit" className="btn btn-primary">
             Sign Up
@@ -78,7 +80,7 @@ function SignUp() {
 
           <button className="btn btn-primary">Back To Sign In</button>
         </div>
-        {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
+       
       </form>
     </>
   );
