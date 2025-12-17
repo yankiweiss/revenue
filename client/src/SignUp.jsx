@@ -1,10 +1,101 @@
-function SignUp () {
-    return (
-    <>
+import { useState } from "react"
 
-    <h1>Sign Up page</h1>
-    
-    </>
+function SignUp() {
+
+    const [res, setRes] = useState(null)
+
+    const handleSignUp = async (event) => {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        const formObjectData = Object.fromEntries(formData.entries())
+
+        try {
+            const response = await fetch('api/register', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formObjectData),
+            })
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setRes(data.message || "Login Failed!");
+                return;
+            }
+
+            setRes(data.message);
+
+
+            event.target.reset();
+        } catch (error) {
+            console.error("There was a problem with the fetch operation:", error);
+        }
+
+
+
+    }
+
+
+
+
+    return (
+        <>
+
+            <form
+                className="d-flex flex-column align-items-center"
+                onSubmit={handleSignUp}
+                style={{ marginTop: "150px" }}
+            >
+                <div className="mb-3 w-25">
+                    <label htmlFor="email" className="form-label">
+                        Email address
+                    </label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        aria-describedby="emailHelp"
+                        autoFocus
+                        name="user"
+                    />
+                    <div id="emailHelp" className="form-text">
+                        We'll never share your email with anyone else.
+                    </div>
+                </div>
+                <div className="mb-3 w-25">
+                    <label htmlFor="pwd" className="form-label">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        name="pwd"
+                    />
+                    <div id="passHelp" className="form-text">
+                        Please Remember your Password.
+                    </div>
+                </div>
+
+                <div className="d-flex justify-content-between w-25">
+
+                    <button type="submit" className="btn btn-primary" >
+                        Sign Up
+                    </button>
+
+
+                    <button className="btn btn-primary" >
+                        Back To Sign In
+                    </button>
+
+
+                </div>
+                {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
+            </form>
+
+        </>
     )
 }
 
