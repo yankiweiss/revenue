@@ -1,40 +1,38 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function SignIn({onLoginSuccess}) {
+function SignIn({ onLoginSuccess }) {
   const [res, setRes] = useState(null);
 
-  const handleForm = (event) => {
+  const handleForm = async (event) => {
     event.preventDefault();
     let form = event.target;
     let formData = new FormData(form);
     let formObjectData = Object.fromEntries(formData.entries());
 
-    fetch("/api/register/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formObjectData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            "Network response was not ok: " + response.statusText
-          );
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        setRes(data.message)
-    
-      onLoginSuccess()
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
+    try {
+      const response = await fetch("/api/register/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formObjectData),
       });
-      event.target.reset()
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setRes(data.message || "Login Failed!");
+        return;
+      }
+
+      setRes(data.message);
+
+      onLoginSuccess();
+      event.target.reset();
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
   };
 
   return (
@@ -76,13 +74,12 @@ function SignIn({onLoginSuccess}) {
         <button type="submit" className="btn btn-primary">
           Sign In
         </button>
-        
       </form>
-      {res && <h4 style={{color: 'navy', textAlign: 'center'}}>{res}</h4>}
+      {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
 
       {/* need to set time out */}
     </>
   );
 }
 
-export default SignIn ;
+export default SignIn;
