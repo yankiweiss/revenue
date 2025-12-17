@@ -21,6 +21,7 @@ function SignUp() {
 
       if (!response.ok) {
         setRes(data.message || "Login Failed!");
+         event.target.reset();
         return;
       }
 
