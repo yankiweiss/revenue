@@ -1,7 +1,10 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
+      "source": "/api/register",
+      "destination": "/api/index.js"
+    },{
+      "source": "/api/patients",
       "destination": "/api/index.js"
     }
   ]
