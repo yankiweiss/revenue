@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function SignIn({ onLoginSuccess }) {
+function SignIn({ onLoginSuccess, onSignUpPressed }) {
   const [res, setRes] = useState(null);
 
   const handleForm = async (event) => {
@@ -29,6 +29,7 @@ function SignIn({ onLoginSuccess }) {
       setRes(data.message);
 
       onLoginSuccess();
+
       event.target.reset();
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
@@ -40,8 +41,9 @@ function SignIn({ onLoginSuccess }) {
       <form
         className="d-flex flex-column align-items-center"
         onSubmit={handleForm}
+        style={{ marginTop: "50px" }}
       >
-        <div className="mb-3 w-25" style={{ marginTop: "100px" }}>
+        <div className="mb-3 w-25">
           <label htmlFor="email" className="form-label">
             Email address
           </label>
@@ -71,9 +73,16 @@ function SignIn({ onLoginSuccess }) {
             Please Remember your Password.
           </div>
         </div>
-        <button type="submit" className="btn btn-primary">
-          Sign In
-        </button>
+
+        <div className="d-flex justify-content-between w-25">
+          <button type="submit" className="btn btn-primary" >
+            Sign In
+          </button>
+         
+          <button className="btn btn-primary" onClick={onSignUpPressed}>
+            Sign Up
+          </button>
+        </div>
       </form>
       {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
 
