@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import patientsRouter from './routes/api/patients.js'
 import cors from 'cors'
-import registerRouter from "./routes/register.js";
+import registerRouter from "./register.js";
 
 dotenv.config();
 const app = express();
