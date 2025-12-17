@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import patientsRouter from './routes/api/patients.js'
 import cors from 'cors'
-import registerRouter from "./register.js";
+import registerRouter from './routes/register.js';
 
 dotenv.config();
 const app = express();
@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(cors())
 
 
-app.use('/', registerRouter)
+app.use('/register', registerRouter)
 app.use('/patients', patientsRouter);
 
 

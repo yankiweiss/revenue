@@ -4,6 +4,7 @@ import { handleNewUser, handleSingIns, getAllCurrentUsers } from './controllers/
 
 
 
+
 registerRouter
 .get('/',getAllCurrentUsers)
 
