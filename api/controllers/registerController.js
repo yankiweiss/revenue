@@ -52,7 +52,7 @@ const handleSingIns = async (req, res) => {
   const foundUser = result.rows[0];
 
   if (!foundUser)
-    return res.send(401).json({ message: "Your Username is not found!" });
+    return res.status(401).json({ message: "Your Username is not found!" });
 
   const match = await bcrypt.compare(pwd, foundUser.password);
 
@@ -69,15 +69,19 @@ const handleSingIns = async (req, res) => {
       { expiresIn: "1d" }
     );
 
+    if(!match){
+      return res.status(401).json({message : 'Invalid Credentials'})
+    }
+
 
     await dataBasePool.query(
       'UPDATE users SET access_token = $1 WHERE username = $2',
       [accessToken, foundUser.username]
     )
-    res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24* 60 * 60 * 1000})
 
-    res.json({ message: `User ${user} is logged in`,
-    accessToken });
+    //res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24* 60 * 60 * 1000})
+
+    res.status(200)
   }
 };
 

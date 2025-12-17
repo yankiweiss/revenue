@@ -1,8 +1,7 @@
-
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function SignIn() {
+function SignIn({onLoginSuccess}) {
   const [res, setRes] = useState(null);
 
   const handleForm = (event) => {
@@ -11,7 +10,7 @@ function SignIn() {
     let formData = new FormData(form);
     let formObjectData = Object.fromEntries(formData.entries());
 
-    fetch("http://localhost:3500/register/login", {
+    fetch("https://revenue-two.vercel.app/api/register/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,6 +28,8 @@ function SignIn() {
       })
       .then((data) => {
         setRes(data.message)
+    
+      onLoginSuccess()
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
@@ -84,4 +85,4 @@ function SignIn() {
   );
 }
 
-export { SignIn };
+export default SignIn ;

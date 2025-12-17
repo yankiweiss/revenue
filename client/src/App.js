@@ -1,20 +1,21 @@
 import React from "react";
 import Header from "./Header";
 import Navbar from './Navbar';
-
+import SignIn from './SignIn';
+import { useState } from "react";
 
 
 function App() {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <>
       <Header />
-      <Navbar />
-      {/*<Table />*/}
-      {/*<UploadExcel />*/}
-      {/*<SignIn />*/}
 
-      {/* need to still workout the below */}
-      {/*<User />*/}
+      {isAuthenticated && <Navbar />}
+
+      {!isAuthenticated && <SignIn onLoginSuccess={() => setIsAuthenticated(true)} />}
     </>
   );
 }

@@ -4,13 +4,11 @@ import { handleNewUser, handleSingIns, getAllCurrentUsers } from '../controllers
 
 
 
-
 registerRouter
 .get('/',getAllCurrentUsers)
 
 .post('/', handleNewUser)
 .post('/login', handleSingIns)
-
 
 
 export default registerRouter;
