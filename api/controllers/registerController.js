@@ -81,7 +81,7 @@ const handleSingIns = async (req, res) => {
 
     //res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24* 60 * 60 * 1000})
 
-    res.status(200)
+    return res.status(200)
   }
 };
 
