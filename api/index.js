@@ -17,10 +17,11 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
+app.use(express.static(path.join(__dirname, "client", "src")));
+
 app.use('/api/register', registerRouter)
 app.use('/patients', patientsRouter);
 
-app.use(express.static(path.join(__dirname, "client", "src")));
 
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
