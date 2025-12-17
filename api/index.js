@@ -8,19 +8,14 @@ dotenv.config();
 const app = express();
 
 
-
-
-
 app.use(express.json())
 app.use(cors())
 
 
-
-
-app.use('/api/register', registerRouter)
-app.use('/api/patients', patientsRouter);
+app.use('/register', registerRouter)
+app.use('/patients', patientsRouter);
 
 
 
 
-export default (req, res) => app(req, res);
+export default app;
