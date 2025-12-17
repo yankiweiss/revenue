@@ -38,6 +38,7 @@ function SignIn({ onLoginSuccess, onSignUpPressed }) {
 
   return (
     <>
+    <h1>Sign In:</h1>
       <form
         className="d-flex flex-column align-items-center"
         onSubmit={handleForm}
