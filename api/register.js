@@ -1,6 +1,6 @@
 import express from 'express';
 const registerRouter = express.Router();
-import { handleNewUser, handleSingIns, getAllCurrentUsers } from './controllers/registerController';
+import { handleNewUser, handleSingIns, getAllCurrentUsers } from './controllers/registerController.js';
 
 
 
