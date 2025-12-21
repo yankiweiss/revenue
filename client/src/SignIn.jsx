@@ -38,11 +38,15 @@ function SignIn({ onLoginSuccess, onSignUpPressed }) {
 
   return (
     <>
-    <h1>Sign In:</h1>
+    <div style={{marginTop: '100px'}}>
+     <h1 style={{textAlign: 'center'}}>Welcome Back!</h1>
+     <p style={{textAlign: 'center'}}>Don't have an account? <span>Click new account now,</span></p>
+     </div>
+    
       <form
         className="d-flex flex-column align-items-center"
         onSubmit={handleForm}
-        style={{ marginTop: "150px" }}
+        style={{ marginTop: "50px" }}
       >
         <div className="mb-3 w-25">
           <label htmlFor="email" className="form-label">
@@ -80,9 +84,6 @@ function SignIn({ onLoginSuccess, onSignUpPressed }) {
             Sign In
           </button>
          
-          <button className="btn btn-primary" onClick={onSignUpPressed}>
-            Sign Up
-          </button>
         </div>
       </form>
       {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}

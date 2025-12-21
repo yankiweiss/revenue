@@ -18,7 +18,7 @@ function Table() {
   return (
     <>
     <div className="d-flex justify-content-center" >
-      <table style={{marginTop: "75px"}} className="table table-striped table-bordered w-75">
+      <table style={{marginTop: "75px"}} className="table table-striped table-bordered w-75 rounded">
         <thead>
           <tr>
             <th scope="col">Client</th>
