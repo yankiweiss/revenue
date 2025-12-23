@@ -72,7 +72,7 @@ function SignUp() {
                 className="form-control"
                 id="email"
                 aria-describedby="emailHelp"
-                name="user"
+                name="email"
               />
             </div>
           </div>
