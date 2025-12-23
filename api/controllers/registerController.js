@@ -41,15 +41,15 @@ const handleNewUser = async (req, res) => {
 
 const handleSingIns = async (req, res) => {
   try{
-  const { user, pwd } = req.body;
-  if (!user || !pwd)
+  const { email , pwd } = req.body;
+  if (!email || !pwd)
     return res
       .status(400)
       .json({ message: "username and password are REQUIRED" });
 
   const result = await dataBasePool.query(
-    "SELECT username, password FROM users WHERE username = $1",
-    [user]
+    "SELECT email, password FROM users WHERE email = $1",
+    [email]
   );
 
   const foundUser = result.rows[0];
@@ -82,7 +82,7 @@ const handleSingIns = async (req, res) => {
 
     await dataBasePool.query(
       'UPDATE users SET access_token = $1 WHERE username = $2',
-      [accessToken, foundUser.username]
+      [accessToken, foundUser.email]
     )
 
     //res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24* 60 * 60 * 1000})

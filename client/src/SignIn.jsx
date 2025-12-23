@@ -80,7 +80,7 @@ function SignIn({ onLoginSuccess }) {
             id="email"
             aria-describedby="emailHelp"
             autoFocus
-            name="user"
+            name="email"
           />
           <div id="emailHelp" className="form-text">
             We'll never share your email with anyone else.
