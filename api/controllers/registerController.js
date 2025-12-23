@@ -15,7 +15,7 @@ const handleNewUser = async (req, res) => {
         .json({ message: "Email and Password are required!" });
 
     const duplicateCheck = await dataBasePool.query(
-      "SELECT username FROM users WHERE username = $1",
+      "SELECT email FROM users WHERE email = $1",
       [email ]
     );
 
