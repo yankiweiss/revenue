@@ -167,9 +167,10 @@ function Table() {
                           )
                         )
                       }
-                      onBlur={(e) =>
-                        addItem(row.id, "worked_date", e.target.value)
-                      }
+                      onBlur={(e) => {
+                        const value = e.target.value || null
+                        addItem(row.id, "worked_date", value)
+                      }}
                     />
                   </td>
 
@@ -184,7 +185,11 @@ function Table() {
                           )
                         )
                       }
-                      onBlur={(e) => addItem(row.id, "dob", e.target.value)}
+                      onBlur={(e) => {
+                        const value = e.target.value || null
+                        addItem(row.id, "dob", value)
+
+                      } }
                     />
                   </td>
                 </tr>
