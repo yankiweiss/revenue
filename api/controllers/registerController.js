@@ -8,15 +8,15 @@ dotenv.config();
 
 const handleNewUser = async (req, res) => {
   try {
-    const { user, pwd } = req.body;
-    if (!user || !pwd)
+    const { email, pwd, fullName } = req.body;
+    if (!email || !pwd)
       return res
         .status(400)
-        .json({ message: "Username and Password are required!" });
+        .json({ message: "Email and Password are required!" });
 
     const duplicateCheck = await dataBasePool.query(
       "SELECT username FROM users WHERE username = $1",
-      [user]
+      [email ]
     );
 
     if (duplicateCheck.rowCount > 0) {
@@ -26,13 +26,13 @@ const handleNewUser = async (req, res) => {
     const hashedPwd = await bcrypt.hash(pwd, 10);
 
     await dataBasePool.query(
-      "INSERT INTO users (username , password) VALUES ($1, $2)",
-      [user, hashedPwd]
+      "INSERT INTO users (email , password, fullname) VALUES ($1, $2, $3)",
+      [email , hashedPwd, fullName]
     );
 
 
 
-    res.status(201).json({ message: `New user ${user} was created` });
+    res.status(201).json({ message: `New user ${email } was created` });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });

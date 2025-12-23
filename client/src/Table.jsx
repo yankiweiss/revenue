@@ -33,7 +33,7 @@ function Table() {
         <input
           style={{ width: "250px", marginTop: "25px" }}
           className="form-control"
-          placeholder="search..."
+          placeholder="search client..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />

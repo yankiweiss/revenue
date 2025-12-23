@@ -1,7 +1,9 @@
 import { useState } from "react";
+import SignIn from "./SignIn";
 
 function SignUp() {
   const [res, setRes] = useState(null);
+  const [view, setView] = useState("signup");
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -21,7 +23,7 @@ function SignUp() {
 
       if (!response.ok) {
         setRes(data.message || "Login Failed!");
-         event.target.reset();
+        event.target.reset();
         return;
       }
 
@@ -33,28 +35,46 @@ function SignUp() {
     }
   };
 
+  if (view === "signin") {
+    return <SignIn />;
+  }
+
   return (
     <>
-    <h1>Sign Up</h1>
+      <h1 style={{textAlign: 'center'}}>Create Account:</h1>
       <form
         className="d-flex flex-column align-items-center"
         onSubmit={handleSignUp}
-        style={{ marginTop: "150px" }}
+        style={{ marginTop: "100px" }}
       >
-        <div className="mb-3 w-25">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            aria-describedby="emailHelp"
-            autoFocus
-            name="user"
-          />
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
+        <div className="mb-3 w-20">
+          <div className="d-flex justify-content-center gap-4">
+            <div>
+              <label htmlFor="fullName" className="form-label">
+                Full Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="fullName"
+                aria-describedby="emailHelp"
+                autoFocus
+                name="fullName"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="form-label">
+                Email address
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                aria-describedby="emailHelp"
+                name="user"
+              />
+            </div>
           </div>
         </div>
         <div className="mb-3 w-25">
@@ -72,16 +92,17 @@ function SignUp() {
           </div>
         </div>
 
-         {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
+        {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
 
         <div className="d-flex justify-content-between w-25">
           <button type="submit" className="btn btn-primary">
             Sign Up
           </button>
 
-          <button className="btn btn-primary">Back To Sign In</button>
+          <button onClick={() => setView("signin")} className="btn btn-primary">
+            Back To Sign In
+          </button>
         </div>
-       
       </form>
     </>
   );

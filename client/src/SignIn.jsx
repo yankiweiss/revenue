@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import SignUp from "./SignUp";
 
-function SignIn({ onLoginSuccess, onSignUpPressed }) {
+function SignIn({ onLoginSuccess }) {
   const [res, setRes] = useState(null);
+ const [view , setView ] = useState('signin')
 
   const handleForm = async (event) => {
     event.preventDefault();
@@ -11,13 +13,16 @@ function SignIn({ onLoginSuccess, onSignUpPressed }) {
     let formObjectData = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("https://revenue-two.vercel.app/api/register/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formObjectData),
-      });
+      const response = await fetch(
+        "https://revenue-two.vercel.app/api/register/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formObjectData),
+        }
+      );
 
       const data = await response.json();
 
@@ -36,13 +41,30 @@ function SignIn({ onLoginSuccess, onSignUpPressed }) {
     }
   };
 
+  if(view === 'signup') {
+    return <SignUp />
+  }
+
   return (
     <>
-    <div style={{marginTop: '100px'}}>
-     <h1 style={{textAlign: 'center'}}>Welcome Back!</h1>
-     <p style={{textAlign: 'center'}}>Don't have an account? <span>Click new account now,</span></p>
-     </div>
-    
+      <div style={{ marginTop: "100px" }}>
+        <h1 style={{ textAlign: "center" }}>Welcome Back!</h1>
+        <p style={{ textAlign: "center" }}>
+          Don't have an account?{" "}
+          <span>
+            <button
+              type="button"
+              class="btn btn-link"
+              onClick={() => {
+                setView('signup')
+              }}
+            >
+              Create New Account
+            </button>
+          </span>
+        </p>
+      </div>
+
       <form
         className="d-flex flex-column align-items-center"
         onSubmit={handleForm}
@@ -80,17 +102,25 @@ function SignIn({ onLoginSuccess, onSignUpPressed }) {
         </div>
 
         <div className="d-flex justify-content-between w-25">
-          <button type="submit" className="btn btn-primary" >
+          <button type="submit" className="btn btn-primary">
             Sign In
           </button>
-         
         </div>
       </form>
       {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
 
+      
+     
+
+      
+
       {/* need to set time out */}
     </>
+
+
   );
+
+  
 }
 
 export default SignIn;
