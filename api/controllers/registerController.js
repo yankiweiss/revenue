@@ -81,7 +81,7 @@ const handleSingIns = async (req, res) => {
 
 
     await dataBasePool.query(
-      'UPDATE users SET access_token = $1 WHERE username = $2',
+      'UPDATE users SET access_token = $1 WHERE email = $2',
       [accessToken, foundUser.email]
     )
 
