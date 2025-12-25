@@ -26,8 +26,8 @@ const handleNewUser = async (req, res) => {
     const hashedPwd = await bcrypt.hash(pwd, 10);
 
     await dataBasePool.query(
-      "INSERT INTO users (email , password, fullname) VALUES ($1, $2, $3)",
-      [email , hashedPwd, fullName]
+      "INSERT INTO users (email , password, fullname, role) VALUES ($1, $2, $3, $4)",
+      [email , hashedPwd, fullName, 1000]
     );
 
 
