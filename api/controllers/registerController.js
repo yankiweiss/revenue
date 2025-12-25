@@ -9,7 +9,7 @@ dotenv.config();
 const handleNewUser = async (req, res) => {
   try {
     const { email, pwd, fullName } = req.body;
-    if (!email || !pwd)
+    if (!email || !pwd || !fullName)
       return res
         .status(400)
         .json({ message: "Email and Password are required!" });
@@ -66,13 +66,13 @@ const handleSingIns = async (req, res) => {
 
   
     const accessToken = jwt.sign(
-      { username: foundUser.username },
+      { username: foundUser.email },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "5m" }
     );
 
     const refreshToken = jwt.sign(
-      { username: foundUser.username },
+      { username: foundUser.email },
       process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: "1d" }
     );
