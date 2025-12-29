@@ -65,8 +65,10 @@ function UploadExcel() {
 
   return (
 
+    
+
 <div className="d-flex flex-column align-items-center mt-5">
-  <h4>Upload New Patients</h4>
+  <h4 className="mt-5">Upload New Patients</h4>
       <input 
        className="form-control w-25"
         type="file"
@@ -74,6 +76,7 @@ function UploadExcel() {
         onChange={handleFileUpload}
       />
   </div>
+  
   );
 }
 

@@ -31,7 +31,7 @@ function Table() {
     <>
       <input
         placeholder="Client search..."
-        className="form-control w-25 mx-auto mt-5"
+        className="form-control w-25 mx-auto mt-5 mb-3"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -46,7 +46,9 @@ function Table() {
               <th scope="col">Member ID</th>
               <th scope="col">Worked Date</th>
               <th scope="col">Date Of Birth</th>
-              <th style={{ width: "25%" }} scope="col">Notes</th>
+              <th style={{ width: "25%" }} scope="col">
+                Notes
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -178,7 +180,7 @@ function Table() {
                     />
                   </td>
                   <td>
-                    <textarea 
+                    <textarea
                       className="form-control border-0 bg-transparent w-100"
                       value={row.notes ?? ""}
                       onChange={(e) =>
