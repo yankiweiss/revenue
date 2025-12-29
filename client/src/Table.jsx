@@ -46,7 +46,7 @@ function Table() {
               <th scope="col">Member ID</th>
               <th scope="col">Worked Date</th>
               <th scope="col">Date Of Birth</th>
-              <th scope="col">Notes</th>
+              <th style={{ width: "25%" }} scope="col">Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -178,8 +178,8 @@ function Table() {
                     />
                   </td>
                   <td>
-                    <input
-                      className="form-control border-0 bg-transparent"
+                    <textarea 
+                      className="form-control border-0 bg-transparent w-100"
                       value={row.notes ?? ""}
                       onChange={(e) =>
                         setData((prev) =>
