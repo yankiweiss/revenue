@@ -64,15 +64,18 @@ const handleSingIns = async (req, res) => {
     return res.status(401).json({message: 'Invalid Credentials'})
   }
 
+
+  const roles = Object.values(foundUser.role)
+
   
     const accessToken = jwt.sign(
-      { username: foundUser.email },
+      { email: foundUser.email },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "5m" }
     );
 
     const refreshToken = jwt.sign(
-      { username: foundUser.email },
+      { email: foundUser.email },
       process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: "1d" }
     );
@@ -87,7 +90,9 @@ const handleSingIns = async (req, res) => {
 
     //res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24* 60 * 60 * 1000})
 
-    return res.status(200).json({message : 'Successful Login', accessToken})
+    
+res.cookie('jwt', refreshToken, {httpOnly: true, maxAge : 24 * 60 *60 *1000})
+    res.status(200).json({message : 'Successful Login', accessToken})
   }catch(err){
     console.error('LOGIN ERROR', err)
     return res.status(500).json({message : 'Server error'})
@@ -97,9 +102,9 @@ const handleSingIns = async (req, res) => {
 
 const getAllCurrentUsers = async (req, res) => {
   const result = await dataBasePool.query("SELECT * FROM users");
-  console.log(result.rows);
+  
 
-  res.json(result.rows);
+  return res.status(200).res.json(result.rows)
 };
 
 export { handleNewUser, handleSingIns, getAllCurrentUsers };

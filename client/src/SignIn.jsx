@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import SignUp from "./SignUp";
 
 function SignIn({ onLoginSuccess }) {
+
+  document.cookie = "firstName=jacobWeiss"
   const [res, setRes] = useState(null);
  const [view , setView ] = useState('signin')
 
@@ -17,6 +19,7 @@ function SignIn({ onLoginSuccess }) {
         "https://revenue-two.vercel.app/api/register/login",
         {
           method: "POST",
+          credentials: 'include',
           headers: {
             "Content-Type": "application/json",
           },
@@ -56,7 +59,7 @@ function SignIn({ onLoginSuccess }) {
               type="button"
               class="btn btn-link"
               onClick={() => {
-                setView('signup')
+                setView("signup");
               }}
             >
               Create New Account
@@ -81,6 +84,7 @@ function SignIn({ onLoginSuccess }) {
             aria-describedby="emailHelp"
             autoFocus
             name="email"
+            required
           />
           <div id="emailHelp" className="form-text">
             We'll never share your email with anyone else.
@@ -95,6 +99,7 @@ function SignIn({ onLoginSuccess }) {
             className="form-control"
             id="password"
             name="pwd"
+            required
           />
           <div id="passHelp" className="form-text">
             Please Remember your Password.
@@ -107,17 +112,12 @@ function SignIn({ onLoginSuccess }) {
           </button>
         </div>
       </form>
+
+   
       {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
-
-      
-     
-
-      
 
       {/* need to set time out */}
     </>
-
-
   );
 
   
