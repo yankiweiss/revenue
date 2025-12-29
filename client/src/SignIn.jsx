@@ -19,7 +19,6 @@ function SignIn({ onLoginSuccess }) {
         "https://revenue-two.vercel.app/api/register/login",
         {
           method: "POST",
-          credentials: 'include',
           headers: {
             "Content-Type": "application/json",
           },
