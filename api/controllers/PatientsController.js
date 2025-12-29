@@ -39,6 +39,7 @@ const updateFieldInPatients = async (req, res) => {
     "member_id",
     "worked_date",
     "dob",
+    "notes",
   ];
 
   if(!allowedFields.includes(field)){

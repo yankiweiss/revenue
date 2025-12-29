@@ -47,6 +47,7 @@ function Table() {
               <th scope="col">Member ID</th>
               <th scope="col">Worked Date</th>
               <th scope="col">Date Of Birth</th>
+              <th scope="col">Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -180,6 +181,23 @@ function Table() {
                       }
 
                       onBlur={(e) => addItem(row.id, "dob", e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      className="form-control border-0 bg-transparent"
+                      value={row.notes}
+                       onChange={(e) =>
+                        setData((prev) =>
+                          prev.map((r) =>
+                            r.id === row.id
+                              ? { ...r, notes: e.target.value }
+                              : r
+                          )
+                        )
+                      }
+
+                      onBlur={(e) => addItem(row.id, "notes", e.target.value)}
                     />
                   </td>
                 </tr>
