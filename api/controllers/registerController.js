@@ -65,7 +65,6 @@ const handleSingIns = async (req, res) => {
   }
 
 
-  const roles = Object.values(foundUser.role)
 
   
     const accessToken = jwt.sign(
