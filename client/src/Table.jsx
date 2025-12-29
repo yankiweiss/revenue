@@ -17,8 +17,7 @@ function Table() {
       .then((data) => setData(data.data));
   }, []);
 
-
-   const addItem = (id, field, newValue) => {
+  const addItem = (id, field, newValue) => {
     fetch("https://revenue-two.vercel.app/api/patients/updateField", {
       method: "POST",
       headers: {
@@ -64,7 +63,7 @@ function Table() {
                     <input
                       className="form-control border-0 bg-transparent"
                       value={row.client}
-                       onChange={(e) =>
+                      onChange={(e) =>
                         setData((prev) =>
                           prev.map((r) =>
                             r.id === row.id
@@ -73,18 +72,14 @@ function Table() {
                           )
                         )
                       }
-
                       onBlur={(e) => addItem(row.id, "client", e.target.value)}
-                    
-
-                      
                     />
                   </td>
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"
                       value={row.insurance}
-                       onChange={(e) =>
+                      onChange={(e) =>
                         setData((prev) =>
                           prev.map((r) =>
                             r.id === row.id
@@ -93,33 +88,32 @@ function Table() {
                           )
                         )
                       }
-
-                      onBlur={(e) => addItem(row.id, "insurance", e.target.value)}
+                      onBlur={(e) =>
+                        addItem(row.id, "insurance", e.target.value)
+                      }
                     />
                   </td>
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"
                       value={row.status}
-                       onChange={(e) =>
+                      onChange={(e) =>
                         setData((prev) =>
                           prev.map((r) =>
                             r.id === row.id
-                              ? { ...r, status : e.target.value }
+                              ? { ...r, status: e.target.value }
                               : r
                           )
                         )
                       }
-
                       onBlur={(e) => addItem(row.id, "status", e.target.value)}
-                      
                     />
                   </td>
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"
                       value={row.company_name}
-                       onChange={(e) =>
+                      onChange={(e) =>
                         setData((prev) =>
                           prev.map((r) =>
                             r.id === row.id
@@ -128,15 +122,16 @@ function Table() {
                           )
                         )
                       }
-
-                      onBlur={(e) => addItem(row.id, "company_name", e.target.value)}
+                      onBlur={(e) =>
+                        addItem(row.id, "company_name", e.target.value)
+                      }
                     />
                   </td>
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"
                       value={row.member_id}
-                       onChange={(e) =>
+                      onChange={(e) =>
                         setData((prev) =>
                           prev.map((r) =>
                             r.id === row.id
@@ -145,15 +140,16 @@ function Table() {
                           )
                         )
                       }
-
-                      onBlur={(e) => addItem(row.id, "member_id", e.target.value)}
+                      onBlur={(e) =>
+                        addItem(row.id, "member_id", e.target.value)
+                      }
                     />
                   </td>
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"
                       value={row.worked_date}
-                       onChange={(e) =>
+                      onChange={(e) =>
                         setData((prev) =>
                           prev.map((r) =>
                             r.id === row.id
@@ -162,32 +158,30 @@ function Table() {
                           )
                         )
                       }
-
-                      onBlur={(e) => addItem(row.id, "worked_date", e.target.value)}
+                      onBlur={(e) =>
+                        addItem(row.id, "worked_date", e.target.value)
+                      }
                     />
                   </td>
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"
                       value={row.dob}
-                       onChange={(e) =>
+                      onChange={(e) =>
                         setData((prev) =>
                           prev.map((r) =>
-                            r.id === row.id
-                              ? { ...r, dob: e.target.value }
-                              : r
+                            r.id === row.id ? { ...r, dob: e.target.value } : r
                           )
                         )
                       }
-
                       onBlur={(e) => addItem(row.id, "dob", e.target.value)}
                     />
                   </td>
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"
-                      value={row.notes}
-                       onChange={(e) =>
+                      value={row.notes ?? ""}
+                      onChange={(e) =>
                         setData((prev) =>
                           prev.map((r) =>
                             r.id === row.id
@@ -196,8 +190,11 @@ function Table() {
                           )
                         )
                       }
+                      onBlur={(e) => {
+                        const value = e.target.value.trim() || null;
 
-                      onBlur={(e) => addItem(row.id, "notes", e.target.value)}
+                        addItem(row.id, "notes", value);
+                      }}
                     />
                   </td>
                 </tr>
