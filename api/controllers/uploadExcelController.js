@@ -15,7 +15,7 @@ DO NOTHING;`;
         row.member_id,
         row.worked_date,
         row.status,
-        company_name,
+        row.company_name,
       ];
       await dataBasePool.query(insertQuery, values);
     }
