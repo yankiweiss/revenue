@@ -35,7 +35,7 @@ function Table() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <div className="table-responsive w-75 mx-auto mt-2 rounded overflow-hidden border border-3 border-light-subtle">
+      <div style={{width: '95%'}} className="table-responsive mx-auto mt-2 rounded overflow-hidden border border-3 border-light-subtle">
         <table className="table table-striped table-bordered mb-0">
           <thead>
             <tr>

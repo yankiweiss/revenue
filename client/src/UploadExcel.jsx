@@ -12,7 +12,7 @@ function UploadExcel() {
       console.log('No Excel Data to Submit');
       return;
     }
-    fetch("http://localhost:3500/patients", {
+    fetch("https://revenue-two.vercel.app/api/patients", {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
