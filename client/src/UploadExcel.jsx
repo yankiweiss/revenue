@@ -95,7 +95,7 @@ function UploadExcel() {
 
       {res && <h4 className="mt-5" style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
       {resRowsInserted && <h4 className="mt-5" style={{ color: "navy", textAlign: "center" }}>{`rows inserted in DB ${resRowsInserted}`}</h4>}
-      {resRowsSkipped && <h4 className="mt-5" style={{ color: "navy", textAlign: "center" }}>`Rows Skipped ${resRowsSkipped}`</h4>}
+      {resRowsSkipped && <h4 className="mt-5" style={{ color: "navy", textAlign: "center" }}>{`Rows Skipped ${resRowsSkipped}`}</h4>}
     </>
   );
 }
