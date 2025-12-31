@@ -19,8 +19,10 @@ DO NOTHING;`;
       ];
       await dataBasePool.query(insertQuery, values);
     }
+     return res.status(200).json({message: 'Excel file was successfully Uploaded.', rowsInserted: data.length})
   } catch (error) {
     console.error(error);
+    return res.status(500).json({message: "Failed to upload Excel file",})
   }
 };
 

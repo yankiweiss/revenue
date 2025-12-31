@@ -45,7 +45,7 @@ function Table() {
               <th scope="col">Company Name</th>
               <th scope="col">Member ID</th>
               <th scope="col">Worked Date</th>
-              <th scope="col">Date Of Birth</th>
+              <th style={{whiteSpace: 'nowrap' }} scope="col">Date Of Birth</th>
               <th style={{ width: "25%" }} scope="col">
                 Notes
               </th>
@@ -79,7 +79,7 @@ function Table() {
                   </td>
                   <td>
                     <input
-                      className="form-control border-0 bg-transparent"
+                      className="form-control border-0 bg-transparent w-auto"
                       value={row.insurance}
                       onChange={(e) =>
                         setData((prev) =>
@@ -97,7 +97,9 @@ function Table() {
                   </td>
                   <td>
                     <input
-                      className="form-control border-0 bg-transparent"
+                      className="form-control border-0 bg-transparent "
+
+                      style={{width: '100px'}}
                       value={row.status}
                       onChange={(e) =>
                         setData((prev) =>

@@ -1,26 +1,38 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import * as XLSX from "xlsx";
 
 function UploadExcel() {
   const [excelData, setExcelData] = useState([]);
+  const [res, setRes] = useState("");
 
   useEffect(() => {
-    if (excelData.length === 0) {
-      console.log('No Excel Data to Submit');
-      return;
-    }
-    fetch("https://revenue-two.vercel.app/api/patients", {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data: excelData })
-    })
-      .then((res) => res.json())
-  }, [excelData])
+    if (excelData.length === 0) return;
+
+    const UploadingExcel = async () => {
+      try {
+        const response = await fetch(
+          "https://revenue-two.vercel.app/api/patients",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ data: excelData }),
+          }
+        );
+
+        const result = await response.json();
+        setRes(result.message);
+      } catch (error) {
+        setRes("Upload failed");
+      }
+    };
+
+    UploadingExcel();
+  }, [excelData]);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -34,9 +46,10 @@ function UploadExcel() {
 
       const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
 
-      const data = XLSX.utils.sheet_to_json(firstSheet, {header: 1, raw: false});
-
-      
+      const data = XLSX.utils.sheet_to_json(firstSheet, {
+        header: 1,
+        raw: false,
+      });
 
       const filtered = data.filter((row) =>
         row.some((cell) => cell !== null && cell !== "")
@@ -64,19 +77,19 @@ function UploadExcel() {
   // need to find a way how to get all headers attached to the value and so to be able to post it.
 
   return (
+    <>
+      <div className="d-flex flex-column align-items-center mt-5">
+        <h4 className="mt-5">Upload New Patients</h4>
+        <input
+          className="form-control w-25"
+          type="file"
+          accept=".xlsx,.xls,.csv"
+          onChange={handleFileUpload}
+        />
+      </div>
 
-    
-
-<div className="d-flex flex-column align-items-center mt-5">
-  <h4 className="mt-5">Upload New Patients</h4>
-      <input 
-       className="form-control w-25"
-        type="file"
-        accept=".xlsx,.xls,.csv"
-        onChange={handleFileUpload}
-      />
-  </div>
-  
+      {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
+    </>
   );
 }
 
