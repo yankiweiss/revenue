@@ -11,7 +11,6 @@ let rowsInserted = 0;
 
     for (let row of data) {
         const result = await dataBasePool.query(insertQuery ,[
-     
         row.client,
         row.insurance,
         row.dob,

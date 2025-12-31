@@ -11,7 +11,8 @@ function UploadExcel() {
   const [resRowsSkipped, setRowsSkipped] = useState('')
 
   useEffect(() => {
-    if (excelData.length === 0) return;
+    if (excelData.length === 0)
+   return;
 
     const UploadingExcel = async () => {
       try {
@@ -96,6 +97,26 @@ function UploadExcel() {
       {res && <h4 className="mt-5" style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
       {resRowsInserted && <h4 className="mt-5" style={{ color: "navy", textAlign: "center" }}>{`rows inserted in DB ${resRowsInserted}`}</h4>}
       {resRowsSkipped && <h4 className="mt-5" style={{ color: "navy", textAlign: "center" }}>{`Rows Skipped ${resRowsSkipped}`}</h4>}
+
+<div className="text-center ">
+<h1 className="badge  rounded-pill text-bg-danger display-4" style={{marginTop: '150px', fontSize: '20px'}}>Please have the Headings as below:</h1>
+</div>
+
+     <table class="table w-50 mx-auto mt-5" >
+  <thead>
+    <tr>
+      <th scope="col">Client</th>
+      <th scope="col">Insurance</th>
+      <th scope="col">Status</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Member ID</th>
+      <th scope="col">Worked Date</th>
+      <th scope="col">Date Of Birth	</th>
+    </tr>
+  </thead>
+  
+</table>
+
     </>
   );
 }
