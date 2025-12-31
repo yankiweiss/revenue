@@ -7,6 +7,8 @@ import * as XLSX from "xlsx";
 function UploadExcel() {
   const [excelData, setExcelData] = useState([]);
   const [res, setRes] = useState("");
+  const [resRowsInserted, setResRowsInserted] = useState('')
+  const [resRowsSkipped, setRowsSkipped] = useState('')
 
   useEffect(() => {
     if (excelData.length === 0) return;
@@ -26,6 +28,9 @@ function UploadExcel() {
 
         const result = await response.json();
         setRes(result.message);
+        setResRowsInserted(result.rowsInserted);
+        setRowsSkipped(result.rowsSkipped)
+       
       } catch (error) {
         setRes("Upload failed");
       }
@@ -88,7 +93,9 @@ function UploadExcel() {
         />
       </div>
 
-      {res && <h4 style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
+      {res && <h4 className="mt-5" style={{ color: "navy", textAlign: "center" }}>{res}</h4>}
+      {resRowsInserted && <h4 className="mt-5" style={{ color: "navy", textAlign: "center" }}>{`rows inserted in DB ${resRowsInserted}`}</h4>}
+      {resRowsSkipped && <h4 className="mt-5" style={{ color: "navy", textAlign: "center" }}>`Rows Skipped ${resRowsSkipped}`</h4>}
     </>
   );
 }
