@@ -76,11 +76,11 @@ const getPatientByID = async (req, res) => {
 
  `;
 
-    const result = await dataBasePool.query(query, [id])
+    const result = await dataBasePool.query(query, [id]);
 
-    res.send(200).res.json({ message: result });
+    res.send(200).json( result.rows[0]);
   } catch (error) {
-      console.error(error);
+    console.error(error);
     res.status(500).res.json({ message: "Database error" });
   }
 };
