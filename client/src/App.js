@@ -4,39 +4,49 @@ import Navbar from "./Navbar";
 import SignIn from "./SignIn";
 import { useState } from "react";
 import SignUp from "./SignUp";
+import {Route, Routes } from 'react-router-dom'
+import UploadExcel from "./UploadExcel";
+import Table from "./Table";
+import ProfileDetail from "./ProfileDetal";
 
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const [isSignUpPressed, setIsSignUpPressed] = useState(false);
-
-  if(isAuthenticated){
-
+//  const [isAuthenticated, setIsAuthenticated] = useState(false);
+//  const [isSignUpPressed, setIsSignUpPressed] = useState(false);
+//  if(isAuthenticated){
+//
   return (
     <>
+    <Header />
+  <Navbar />
 
+  <Routes >
+    <Route exact path="/UploadExcel" element={<UploadExcel/>}/>
+  </Routes>
 
-      <Header />
+  <Routes >
+    <Route exact path="/Table" element={<Table/>}/>
+  </Routes>
 
-    <Navbar />
-    </>
-  );
+  <Routes>
+    <Route path="/ProfileDetail/:id" element={ProfileDetail}/>
+  </Routes>
 
-}
-
-return (
-  <>
-  <Header />
-
-  {!isSignUpPressed ? (
-    <SignIn 
-     onLoginSuccess={() => setIsAuthenticated(true)}
-          onSignUpPressed={() => setIsSignUpPressed(true)} />
-  ) : (
-    <SignUp onBackToSignIn={() => setIsSignUpPressed(false)} />
-  )}
+  
   </>
+
+
+//  <>
+//  <Header />
+//
+//  {!isSignUpPressed ? */
+//    <SignIn 
+//     onLoginSuccess={() => setIsAuthenticated(true)}
+//          onSignUpPressed={() => setIsSignUpPressed(true)} />
+//  ) : (
+//    <SignUp onBackToSignIn={() => setIsSignUpPressed(false)} />
+//  )}
+
 )
 }
 

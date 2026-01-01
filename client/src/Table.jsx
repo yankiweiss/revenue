@@ -60,7 +60,7 @@ function Table() {
               )
 
               .map((row) => (
-                <tr key={row.id}>
+                <tr key={row.id} style={{ cursor: "pointer" }}>
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"

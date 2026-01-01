@@ -66,7 +66,26 @@ const updateFieldInPatients = async (req, res) => {
 
 }
 
-export { getAllPatients, updateFieldInPatients };
+const getPatientByID = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const query = `
+        SELECT * FROM patients
+        WHERE id = $1
+
+ `;
+
+    const result = await dataBasePool.query(query, [id])
+
+    res.send(200).res.json({ message: result });
+  } catch (error) {
+      console.error(error);
+    res.status(500).res.json({ message: "Database error" });
+  }
+};
+
+export { getAllPatients, updateFieldInPatients, getPatientByID };
 
 
 
