@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Navigate } from "react-router-dom";
 
 function Table() {
   const [data, setData] = useState([]);
@@ -60,7 +61,7 @@ function Table() {
               )
 
               .map((row) => (
-                <tr key={row.id} style={{ cursor: "pointer" }}>
+                <tr key={row.id} style={{ cursor: "pointer" }} onClick={() => Navigate (`/profile/${row.id}`, {state : {patient: row}}) }>
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"
