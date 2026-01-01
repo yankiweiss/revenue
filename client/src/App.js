@@ -20,13 +20,7 @@ function App() {
 
   <Routes >
     <Route exact path="/UploadExcel" element={<UploadExcel/>}/>
-  </Routes>
-
-  <Routes >
     <Route exact path="/Table" element={<Table/>}/>
-  </Routes>
-
-  <Routes>
     <Route path="/ProfileDetail/:id" element={ProfileDetail}/>
   </Routes>
 
