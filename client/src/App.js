@@ -1,9 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import Navbar from "./Navbar";
-import SignIn from "./SignIn";
-import { useState } from "react";
-import SignUp from "./SignUp";
+
 import {Route, Routes } from 'react-router-dom'
 import UploadExcel from "./UploadExcel";
 import Table from "./Table";
