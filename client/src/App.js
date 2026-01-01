@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import {Route, Routes } from 'react-router-dom'
 import UploadExcel from "./UploadExcel";
 import Table from "./Table";
-import ProfileDetail from "./ProfileDetal";
+
 
 
 function App() {
