@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import patientsRouter from './routes/api/patients.js'
 import cors from 'cors'
 import registerRouter from './routes/register.js';
-import serverless from 'serverless-http';
+
 
 dotenv.config();
 const app = express();
@@ -19,4 +19,4 @@ app.use('/api/patients', patientsRouter);
 
 
 
-export default serverless(app);
+export default app;
