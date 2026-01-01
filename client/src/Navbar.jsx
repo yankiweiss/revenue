@@ -8,14 +8,13 @@ function Navbar() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setSelected(e.target.value);
+    const value = e.target.value
+    setSelected(value);
+    navigate(value)
   };
-  const [selected, setSelected] = useState("/Table");
+  const [selected, setSelected] = useState("");
 
-  useEffect(() => {
-    navigate(selected);
-  }, [navigate, selected]);
-
+ 
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-center gap-3">

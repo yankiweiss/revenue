@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Navigate } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 
 function Table() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
+
+  const navigate = useNavigate();
 
   const searchData = data.filter((row) =>
     row.client.trim().toLowerCase().includes(search.trim().toLowerCase())
@@ -36,20 +38,18 @@ function Table() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <div style={{width: '95%'}} className="table-responsive mx-auto mt-2 rounded overflow-hidden border border-3 border-light-subtle">
+      <div style={{width: '80%'}} className="table-responsive mx-auto mt-2 rounded overflow-hidden border border-3 border-light-subtle">
         <table className="table table-striped table-bordered mb-0">
           <thead>
             <tr>
               <th scope="col">Client</th>
-              <th scope="col">Insurance</th>
               <th scope="col">Status</th>
               <th scope="col">Company Name</th>
-              <th scope="col">Member ID</th>
-              <th scope="col">Worked Date</th>
               <th style={{whiteSpace: 'nowrap' }} scope="col">Date Of Birth</th>
               <th style={{ width: "25%" }} scope="col">
                 Notes
               </th>
+              <th scope="col">Details</th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +61,7 @@ function Table() {
               )
 
               .map((row) => (
-                <tr key={row.id} style={{ cursor: "pointer" }} onClick={() => Navigate (`/profile/${row.id}`, {state : {patient: row}}) }>
+                <tr key={row.id} >
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"
@@ -78,24 +78,7 @@ function Table() {
                       onBlur={(e) => addItem(row.id, "client", e.target.value)}
                     />
                   </td>
-                  <td>
-                    <input
-                      className="form-control border-0 bg-transparent w-auto"
-                      value={row.insurance}
-                      onChange={(e) =>
-                        setData((prev) =>
-                          prev.map((r) =>
-                            r.id === row.id
-                              ? { ...r, insurance: e.target.value }
-                              : r
-                          )
-                        )
-                      }
-                      onBlur={(e) =>
-                        addItem(row.id, "insurance", e.target.value)
-                      }
-                    />
-                  </td>
+                 
                   <td>
                     <input
                       className="form-control border-0 bg-transparent "
@@ -132,42 +115,7 @@ function Table() {
                       }
                     />
                   </td>
-                  <td>
-                    <input
-                      className="form-control border-0 bg-transparent"
-                      value={row.member_id}
-                      onChange={(e) =>
-                        setData((prev) =>
-                          prev.map((r) =>
-                            r.id === row.id
-                              ? { ...r, member_id: e.target.value }
-                              : r
-                          )
-                        )
-                      }
-                      onBlur={(e) =>
-                        addItem(row.id, "member_id", e.target.value)
-                      }
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="form-control border-0 bg-transparent"
-                      value={row.worked_date}
-                      onChange={(e) =>
-                        setData((prev) =>
-                          prev.map((r) =>
-                            r.id === row.id
-                              ? { ...r, worked_date: e.target.value }
-                              : r
-                          )
-                        )
-                      }
-                      onBlur={(e) =>
-                        addItem(row.id, "worked_date", e.target.value)
-                      }
-                    />
-                  </td>
+                
                   <td>
                     <input
                       className="form-control border-0 bg-transparent"
@@ -201,6 +149,9 @@ function Table() {
                         addItem(row.id, "notes", value);
                       }}
                     />
+                  </td >
+                  <td >
+                     <button type="button" class="btn btn-secondary" style={{ cursor: "pointer" }} onClick={() => navigate(`/profile/${row.id}`, {state : {patient: row}}) }>Details:</button>
                   </td>
                 </tr>
               ))}

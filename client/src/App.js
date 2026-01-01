@@ -22,7 +22,7 @@ function App() {
   <Routes >
     <Route exact path="/UploadExcel" element={<UploadExcel/>}/>
     <Route exact path="/Table" element={<Table/>}/>
-     <Route path="/profile/:id" element={<ProfileDetail />} />
+     <Route  exact path="/profile/:id" element={<ProfileDetail/>} />
 
    
   </Routes>
