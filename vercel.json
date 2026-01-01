@@ -11,7 +11,6 @@
       "config": { "distDir": "build" } 
     }
   ],
-  "outputDirectory": "client/build",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "api/index.js" },
     { "source": "/(.*)", "destination": "client/index.html" }
