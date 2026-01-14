@@ -9,8 +9,9 @@ import { updateFieldInPatients } from '../../controllers/PatientsController.js';
 
 
 patientsRouter.post('/', excelFilesToDB).get('/', getAllPatients).post('/updateField' , updateFieldInPatients)
-.get("/:id", getPatientByID)
 .get('/same', duplicateDOB)
+.get("/:id", getPatientByID)
+
 
 
 export default patientsRouter;
