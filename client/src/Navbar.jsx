@@ -1,20 +1,17 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
-
   const handleChange = (e) => {
-    const value = e.target.value
+    const value = e.target.value;
     setSelected(value);
-    navigate(value)
+    navigate(value);
   };
   const [selected, setSelected] = useState("");
 
- 
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-center gap-3">
@@ -30,7 +27,11 @@ function Navbar() {
         </section>
 
         <section>
-          <button type="button" className="btn btn-secondary">
+          <button
+            type="button"
+            className="btn btn-secondary"
+           onClick={() => navigate('/Messages')}
+          >
             Messages
           </button>
         </section>

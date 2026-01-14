@@ -118,7 +118,7 @@ function UploadExcel() {
       )}
 
       {/* ================= Required Headers ================= */}
-      <div className="card shadow-sm mx-auto" style={{ maxWidth: "700px" }}>
+      <div className="card shadow-sm mx-auto mt-5" style={{ maxWidth: "700px" }}>
         <div className="card-header bg-danger text-white fw-bold text-center">
           Required Excel Headers
         </div>

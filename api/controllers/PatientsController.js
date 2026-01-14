@@ -85,19 +85,33 @@ const getPatientByID = async (req, res) => {
   }
 };
 
+
 const duplicateDOB = async (req, res) => {
-  console.log("duplicateDOB endpoint hit");
   try {
-    const query = `SELECT * FROM patients ORDER BY client
-`;
+    const query = `
+      SELECT *
+      FROM patients
+      WHERE dob IS NOT NULL
+      AND dob <> ''
+      AND dob IN (
+        SELECT dob
+        FROM patients
+        WHERE dob IS NOT NULL AND dob <> ''
+        GROUP BY dob
+        HAVING COUNT(*) > 1
+      )
+      ORDER BY dob;
+    `;
 
-    const result = await dataBasePool.query(query);
-
-   return  res.json({data : result.rows});
+    const { rows } = await dataBasePool.query(query);
+    res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Server error" });
   }
 };
+
+
 
 export { getAllPatients, updateFieldInPatients, getPatientByID , duplicateDOB};
 

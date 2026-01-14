@@ -4,8 +4,7 @@ const excelFilesToDB = async (req, res) => {
   const { data } = req.body;
   try {
     const insertQuery = `INSERT INTO patients(client, insurance, dob, member_id, worked_date, status, company_name)
-        VALUES($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (client, dob)
-DO NOTHING;`;
+        VALUES($1, $2, $3, $4, $5, $6, $7)`;
 
 let rowsInserted = 0;
 
@@ -29,5 +28,7 @@ let rowsInserted = 0;
     return res.status(500).json({message: "Failed to upload Excel file",})
   }
 };
+
+
 
 export { excelFilesToDB };

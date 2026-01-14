@@ -6,6 +6,7 @@ import {Route, Routes } from 'react-router-dom'
 import UploadExcel from "./UploadExcel";
 import Table from "./Table";
 import ProfileDetail from "./ProfileDetal";
+import Messages from "./Messages";
 
 
 
@@ -23,7 +24,7 @@ function App() {
     <Route exact path="/UploadExcel" element={<UploadExcel/>}/>
     <Route exact path="/Table" element={<Table/>}/>
      <Route  exact path="/profile/:id" element={<ProfileDetail/>} />
-
+ <Route  exact path="/Messages" element={<Messages/>} />
    
   </Routes>
 
