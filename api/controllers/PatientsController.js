@@ -85,9 +85,19 @@ const getPatientByID = async (req, res) => {
   }
 };
 
-const duplicateDOB = () => {
-  const query = `SELECT * FROM patients
+const duplicateDOB = async (req, res) => {
+
+  try {
+     const query = `SELECT * FROM patients
 `
+
+const result = await dataBasePool.query(query)
+
+res.json(result)
+  } catch (error) {
+    console.error(error)
+  }
+ 
 }
 
 export { getAllPatients, updateFieldInPatients, getPatientByID , duplicateDOB};
