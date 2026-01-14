@@ -3,7 +3,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Navbar() {
+function Navbar({data}) {
   const navigate = useNavigate();
   const handleChange = (e) => {
     const value = e.target.value;
@@ -29,10 +29,10 @@ function Navbar() {
         <section>
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-light btn-outline-dark"
            onClick={() => navigate('/Messages')}
           >
-            Messages
+            Messages  <span style={{color: 'red'}}>  {data.length}</span>
           </button>
         </section>
       </nav>

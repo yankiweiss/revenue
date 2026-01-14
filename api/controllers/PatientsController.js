@@ -82,7 +82,9 @@ const getPatientByID = async (req, res) => {
 const duplicateDOB = async (req, res) => {
   try {
     const query = `
-      SELECT *
+      SELECT 
+      client,
+      O_CHAR(dob, 'MM/DD/YYYY') AS dob
       FROM patients
       WHERE client IS NOT NULL
       AND client IN (
