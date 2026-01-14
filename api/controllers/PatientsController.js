@@ -1,10 +1,9 @@
 import dataBasePool from "../model/db.js";
 import { Client } from "pg";
 
-
 const getAllPatients = async (req, res) => {
-    try {
-        const getAllData = `
+  try {
+    const getAllData = `
         SELECT 
         id,
         client,
@@ -17,22 +16,20 @@ const getAllPatients = async (req, res) => {
         notes
          FROM patients`;
 
-        const results = await dataBasePool.query(getAllData);
+    const results = await dataBasePool.query(getAllData);
 
-        return res.status(200).json({
-            data: results.rows
-        })
-    } catch (error) {
-        console.error(error)
-    }
-}
-
+    return res.status(200).json({
+      data: results.rows,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const updateFieldInPatients = async (req, res) => {
+  const { id, field, newValue } = req.body;
 
-    const {id , field, newValue} = req.body;
-
-    const allowedFields = [
+  const allowedFields = [
     "client",
     "insurance",
     "status",
@@ -43,28 +40,25 @@ const updateFieldInPatients = async (req, res) => {
     "notes",
   ];
 
-  if(!allowedFields.includes(field)){
-    return res.status(400).json({message: 'Invalid field'})
+  if (!allowedFields.includes(field)) {
+    return res.status(400).json({ message: "Invalid field" });
   }
 
-    try {
-        const query = `
+  try {
+    const query = `
         UPDATE patients
         SET ${field} = $1
         WHERE id = $2
-        RETURNING *`
-      
-        const result = await dataBasePool.query(query, [newValue, id])
+        RETURNING *`;
 
-        
+    const result = await dataBasePool.query(query, [newValue, id]);
 
-        res.json({message: 'Updated Successfully'})
-    } catch (error) {
-        console.error(error);
+    res.json({ message: "Updated Successfully" });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Database error" });
-    }
-
-}
+  }
+};
 
 const getPatientByID = async (req, res) => {
   const { id } = req.params;
@@ -85,18 +79,16 @@ const getPatientByID = async (req, res) => {
   }
 };
 
-
 const duplicateDOB = async (req, res) => {
   try {
     const query = `
       SELECT *
       FROM patients
       WHERE dob IS NOT NULL
-      AND dob <> ''
       AND dob IN (
         SELECT dob
         FROM patients
-        WHERE dob IS NOT NULL AND dob <> ''
+        WHERE dob IS NOT NULL
         GROUP BY dob
         HAVING COUNT(*) > 1
       )
@@ -111,9 +103,4 @@ const duplicateDOB = async (req, res) => {
   }
 };
 
-
-
-export { getAllPatients, updateFieldInPatients, getPatientByID , duplicateDOB};
-
-
-
+export { getAllPatients, updateFieldInPatients, getPatientByID, duplicateDOB };
