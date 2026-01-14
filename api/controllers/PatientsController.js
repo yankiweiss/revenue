@@ -93,7 +93,7 @@ const duplicateDOB = async (req, res) => {
 
     const result = await dataBasePool.query(query);
 
-    res.json(result.rows);
+    res.json({data : result.rows});
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
