@@ -66,6 +66,8 @@ const getPatientByID = async (req, res) => {
   try {
     const query = `
         SELECT * FROM patients
+         TO_CHAR(worked_date, 'MM/DD/YYYY') AS worked_date,
+        TO_CHAR(dob, 'MM/DD/YYYY') AS dob
         WHERE id = $1
 
  `;

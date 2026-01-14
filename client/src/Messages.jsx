@@ -1,8 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Messages({data}) {
- 
+function Messages({ data }) {
+    const navigate = useNavigate()
+    const goToProfileDetail = (id) => {
+        navigate(`/profile/${id}`)
+    }
 
   return (
     <>
@@ -21,6 +24,14 @@ function Messages({data}) {
             <tr key={row.id}>
               <td>{row.dob}</td>
               <td>{row.client}</td>
+              <td>{row.insurance}</td>
+              <td className="text-end">
+                <button
+                  className="btn btn-outline-secondary btn-sm"
+                onClick={() => goToProfileDetail(row.id)}>
+                  View
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

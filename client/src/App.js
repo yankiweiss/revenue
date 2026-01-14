@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Navbar from "./Navbar";
 
@@ -11,9 +11,10 @@ import Messages from "./Messages";
 function App() {
   const [errorData, setErrorData] = useState([]);
 
-  fetch("https://revenue-two.vercel.app/api/patients/same")
+   useEffect(() => { fetch("https://revenue-two.vercel.app/api/patients/same")
     .then((response) => response.json())
     .then((array) => setErrorData(array));
+   },[])
 
   return (
     <>

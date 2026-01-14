@@ -2,10 +2,18 @@ import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
+
 function Table() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
-  const navigate = useNavigate();
+
+  const navigate = useNavigate()
+
+    const goToProfileDetail = (id) => {
+        navigate(`/profile/${id}`)
+    }
+
+  
 
   const searchData = data.filter((row) =>
     row.client?.toLowerCase().includes(search.toLowerCase())
@@ -177,11 +185,7 @@ function Table() {
                     <td className="text-end">
                       <button
                         className="btn btn-outline-secondary btn-sm"
-                        onClick={() =>
-                          navigate(`/profile/${row.id}`, {
-                            state: { patient: row },
-                          })
-                        }
+                        onClick={() => goToProfileDetail(row.id)}
                       >
                         View
                       </button>

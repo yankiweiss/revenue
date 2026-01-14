@@ -1,37 +1,46 @@
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect, useState } from "react";
 
 function ProfileDetail() {
-  const location = useLocation();
-  const { patient } = location.state || {};
 
-  if (!patient) return null;
 
-  const [firstName, lastName] = patient.client.split(" ");
+  const { id } = useParams();
+  const numericId = Number(id)
+
+  
+
+  useEffect(() => {
+    fetch(`https://revenue-two.vercel.app/api/patients/${numericId}`)
+      .then((res) => res.json())
+      .then((patient) => setMessageData(patient));
+  }, [numericId]);
+
+    const [messageData, setMessageData] = useState('');
+
+ console.log(messageData)
 
   return (
     <div className="container my-5">
       {/* ================= Patient Info ================= */}
       <div className="card shadow-sm mb-4">
-        <div className="card-header bg-light fw-bold">
-          Patient Information
-        </div>
+        <div className="card-header bg-light fw-bold">Patient Information</div>
 
         <div className="card-body">
           <div className="row g-3">
             <div className="col-md-4">
               <label className="form-label">First Name</label>
-              <input className="form-control" value={firstName} readOnly />
+              <input className="form-control" readOnly />
             </div>
 
             <div className="col-md-4">
               <label className="form-label">Last Name</label>
-              <input className="form-control" value={lastName} readOnly />
+              <input className="form-control" readOnly />
             </div>
 
             <div className="col-md-4">
               <label className="form-label">Date of Birth</label>
-              <input className="form-control" value={patient.dob} readOnly />
+              <input className="form-control" value={messageData.dob} readOnly />
             </div>
           </div>
 
@@ -65,7 +74,7 @@ function ProfileDetail() {
               <label className="form-label">Worked Date</label>
               <input
                 className="form-control"
-                value={patient.worked_date}
+                value={messageData.worked_date}
                 readOnly
               />
             </div>
@@ -83,29 +92,17 @@ function ProfileDetail() {
           <div className="row g-3">
             <div className="col-md-5">
               <label className="form-label">Insurance</label>
-              <input
-                className="form-control"
-                value={patient.insurance}
-                readOnly
-              />
+              <input className="form-control" value={messageData.insurance} readOnly />
             </div>
 
             <div className="col-md-4">
               <label className="form-label">Member ID</label>
-              <input
-                className="form-control"
-                value={patient.member_id}
-                readOnly
-              />
+              <input className="form-control" value={messageData.member_id} readOnly />
             </div>
 
             <div className="col-md-3">
               <label className="form-label">Status</label>
-              <input
-                className="form-control"
-                value={patient.status}
-                readOnly
-              />
+              <input className="form-control" value={messageData.status} readOnly />
             </div>
           </div>
         </div>
@@ -119,7 +116,7 @@ function ProfileDetail() {
           <textarea
             className="form-control"
             rows="4"
-            value={patient.notes}
+            value={messageData.notes}
             readOnly
           />
         </div>
