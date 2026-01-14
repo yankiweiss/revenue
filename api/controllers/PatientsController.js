@@ -88,7 +88,7 @@ const getPatientByID = async (req, res) => {
 const duplicateDOB = async (req, res) => {
   console.log("duplicateDOB endpoint hit");
   try {
-    const query = `SELECT * FROM patients
+    const query = `SELECT * FROM patients ORDER BY client
 `;
 
     const result = await dataBasePool.query(query);
