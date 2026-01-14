@@ -84,15 +84,15 @@ const duplicateDOB = async (req, res) => {
     const query = `
       SELECT *
       FROM patients
-      WHERE dob IS NOT NULL
-      AND dob IN (
-        SELECT dob
+      WHERE client IS NOT NULL
+      AND client IN (
+        SELECT client
         FROM patients
-        WHERE dob IS NOT NULL
-        GROUP BY dob
+        WHERE client IS NOT NULL
+        GROUP BY client
         HAVING COUNT(*) > 1
       )
-      ORDER BY dob;
+      ORDER BY client;
     `;
 
     const { rows } = await dataBasePool.query(query);
