@@ -10,10 +10,12 @@ function Messages({data}) {
         <thead>
           <tr>
             <th>DOB</th>
-            <th>Patent Name</th>
+            <th>Patient Name</th>
+            <th>Insurance</th>
             <th>Error</th>
           </tr>
         </thead>
+
         <tbody>
           {data.map((row) => (
             <tr key={row.id}>

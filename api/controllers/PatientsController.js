@@ -83,8 +83,15 @@ const duplicateDOB = async (req, res) => {
   try {
     const query = `
       SELECT 
+      id,
       client,
-      TO_CHAR(dob, 'MM/DD/YYYY') AS dob
+        insurance,
+        status,
+        company_name,
+        member_id,
+        TO_CHAR(worked_date, 'MM/DD/YYYY') AS worked_date,
+        TO_CHAR(dob, 'MM/DD/YYYY') AS dob,
+        notes
       FROM patients
       WHERE client IS NOT NULL
       AND client IN (
