@@ -1,164 +1,198 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Table() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
-
   const navigate = useNavigate();
 
   const searchData = data.filter((row) =>
-    row.client.trim().toLowerCase().includes(search.trim().toLowerCase())
+    row.client?.toLowerCase().includes(search.toLowerCase())
   );
 
   useEffect(() => {
     fetch("https://revenue-two.vercel.app/api/patients")
-      .then((res) => {
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => setData(data.data));
   }, []);
 
   const addItem = (id, field, newValue) => {
     fetch("https://revenue-two.vercel.app/api/patients/updateField", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, field, newValue }),
     });
   };
 
   return (
-    <>
-      <input
-        placeholder="Client search..."
-        className="form-control w-25 mx-auto mt-5 mb-3"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <div style={{width: '80%'}} className="table-responsive mx-auto mt-2 rounded overflow-hidden border border-3 border-light-subtle">
-        <table className="table table-striped table-bordered mb-0">
-          <thead>
-            <tr>
-              <th scope="col">Client</th>
-              <th scope="col">Status</th>
-              <th scope="col">Company Name</th>
-              <th style={{whiteSpace: 'nowrap' }} scope="col">Date Of Birth</th>
-              <th style={{ width: "25%" }} scope="col">
-                Notes
-              </th>
-              <th scope="col">Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...searchData]
-              .sort((a, b) =>
-                a.client.localeCompare(b.client, undefined, {
-                  sensitivity: "base",
-                })
-              )
-
-              .map((row) => (
-                <tr key={row.id} >
-                  <td>
-                    <input
-                      className="form-control border-0 bg-transparent"
-                      value={row.client}
-                      onChange={(e) =>
-                        setData((prev) =>
-                          prev.map((r) =>
-                            r.id === row.id
-                              ? { ...r, client: e.target.value }
-                              : r
-                          )
-                        )
-                      }
-                      onBlur={(e) => addItem(row.id, "client", e.target.value)}
-                    />
-                  </td>
-                 
-                  <td>
-                    <input
-                      className="form-control border-0 bg-transparent "
-
-                      style={{width: '100px'}}
-                      value={row.status}
-                      onChange={(e) =>
-                        setData((prev) =>
-                          prev.map((r) =>
-                            r.id === row.id
-                              ? { ...r, status: e.target.value }
-                              : r
-                          )
-                        )
-                      }
-                      onBlur={(e) => addItem(row.id, "status", e.target.value)}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="form-control border-0 bg-transparent"
-                      value={row.company_name}
-                      onChange={(e) =>
-                        setData((prev) =>
-                          prev.map((r) =>
-                            r.id === row.id
-                              ? { ...r, company_name: e.target.value }
-                              : r
-                          )
-                        )
-                      }
-                      onBlur={(e) =>
-                        addItem(row.id, "company_name", e.target.value)
-                      }
-                    />
-                  </td>
-                
-                  <td>
-                    <input
-                      className="form-control border-0 bg-transparent"
-                      value={row.dob}
-                      onChange={(e) =>
-                        setData((prev) =>
-                          prev.map((r) =>
-                            r.id === row.id ? { ...r, dob: e.target.value } : r
-                          )
-                        )
-                      }
-                      onBlur={(e) => addItem(row.id, "dob", e.target.value)}
-                    />
-                  </td>
-                  <td>
-                    <textarea
-                      className="form-control border-0 bg-transparent w-100"
-                      value={row.notes ?? ""}
-                      onChange={(e) =>
-                        setData((prev) =>
-                          prev.map((r) =>
-                            r.id === row.id
-                              ? { ...r, notes: e.target.value }
-                              : r
-                          )
-                        )
-                      }
-                      onBlur={(e) => {
-                        const value = e.target.value.trim() || null;
-
-                        addItem(row.id, "notes", value);
-                      }}
-                    />
-                  </td >
-                  <td >
-                     <button type="button" class="btn btn-secondary" style={{ cursor: "pointer" }} onClick={() => navigate(`/profile/${row.id}`, {state : {patient: row}}) }>Details:</button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+    <div className="container-fluid mt-5">
+      {/* ================= Search ================= */}
+      <div className="row mb-3">
+        <div className="col-md-4 mx-auto">
+          <input
+            className="form-control shadow-sm"
+            placeholder="🔍 Search client..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
-    </>
+
+      {/* ================= Table Card ================= */}
+      <div className="card shadow-sm mx-auto" style={{ width: "90%" }}>
+        <div className="card-header bg-light fw-bold">
+          Patient Revenue Table
+        </div>
+
+        <div className="table-responsive">
+          <table className="table table-hover align-middle mb-0">
+            <thead className="table-light sticky-top">
+              <tr>
+                <th>Client</th>
+                <th>Status</th>
+                <th>Company</th>
+                <th style={{ whiteSpace: "nowrap" }}>DOB</th>
+                <th style={{ width: "30%" }}>Notes</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {[...searchData]
+                .sort((a, b) =>
+                  a.client.localeCompare(b.client, undefined, {
+                    sensitivity: "base",
+                  })
+                )
+                .map((row) => (
+                  <tr key={row.id}>
+                    {/* Client */}
+                    <td>
+                      <input
+                        className="form-control form-control-sm border-0 bg-transparent fw-semibold"
+                        value={row.client}
+                        onChange={(e) =>
+                          setData((prev) =>
+                            prev.map((r) =>
+                              r.id === row.id
+                                ? { ...r, client: e.target.value }
+                                : r
+                            )
+                          )
+                        }
+                        onBlur={(e) =>
+                          addItem(row.id, "client", e.target.value)
+                        }
+                      />
+                    </td>
+
+                    {/* Status */}
+                    <td>
+                      <input
+                        className="form-control form-control-sm text-center border rounded-pill"
+                        style={{ maxWidth: "110px" }}
+                        value={row.status}
+                        onChange={(e) =>
+                          setData((prev) =>
+                            prev.map((r) =>
+                              r.id === row.id
+                                ? { ...r, status: e.target.value }
+                                : r
+                            )
+                          )
+                        }
+                        onBlur={(e) =>
+                          addItem(row.id, "status", e.target.value)
+                        }
+                      />
+                    </td>
+
+                    {/* Company */}
+                    <td>
+                      <input
+                        className="form-control form-control-sm border-0 bg-transparent"
+                        value={row.company_name}
+                        onChange={(e) =>
+                          setData((prev) =>
+                            prev.map((r) =>
+                              r.id === row.id
+                                ? { ...r, company_name: e.target.value }
+                                : r
+                            )
+                          )
+                        }
+                        onBlur={(e) =>
+                          addItem(row.id, "company_name", e.target.value)
+                        }
+                      />
+                    </td>
+
+                    {/* DOB */}
+                    <td>
+                      <input
+                        className="form-control form-control-sm border-0 bg-transparent"
+                        value={row.dob}
+                        onChange={(e) =>
+                          setData((prev) =>
+                            prev.map((r) =>
+                              r.id === row.id
+                                ? { ...r, dob: e.target.value }
+                                : r
+                            )
+                          )
+                        }
+                        onBlur={(e) =>
+                          addItem(row.id, "dob", e.target.value)
+                        }
+                      />
+                    </td>
+
+                    {/* Notes */}
+                    <td>
+                      <textarea
+                        rows="1"
+                        className="form-control form-control-sm border-0 bg-transparent"
+                        value={row.notes ?? ""}
+                        onChange={(e) =>
+                          setData((prev) =>
+                            prev.map((r) =>
+                              r.id === row.id
+                                ? { ...r, notes: e.target.value }
+                                : r
+                            )
+                          )
+                        }
+                        onBlur={(e) =>
+                          addItem(
+                            row.id,
+                            "notes",
+                            e.target.value.trim() || null
+                          )
+                        }
+                      />
+                    </td>
+
+                    {/* Details */}
+                    <td className="text-end">
+                      <button
+                        className="btn btn-outline-secondary btn-sm"
+                        onClick={() =>
+                          navigate(`/profile/${row.id}`, {
+                            state: { patient: row },
+                          })
+                        }
+                      >
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 }
 

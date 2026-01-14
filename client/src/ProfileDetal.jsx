@@ -1,88 +1,130 @@
 import { useLocation } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function ProfileDetail() {
   const location = useLocation();
   const { patient } = location.state || {};
 
-  const fullName = patient.client.split(" ");
+  if (!patient) return null;
+
+  const [firstName, lastName] = patient.client.split(" ");
+
   return (
-    <>
-      
-        <div class="row d-flex justify-content-center mt-5">
-          <div class="col-md-2">
-            <label className="form-label"> First Name: </label>
-            <input className="form-control" value={fullName[0]}></input>
-          </div>
-          <div class="col-md-2">
-            <label className="form-label">Last Name: </label>
-            <input className="form-control" value={fullName[1]}></input>
-          </div>
-
-          <div className="row d-flex justify-content-center mt-5">
-
-          <div class="col-md-2">
-            <label className="form-label">Address: </label>
-            <input className="form-control" value={'need to configure'}></input>
-          </div>
-          <div class="col-md-2">
-            <label className="form-label">City: </label>
-            <input className="form-control" value={'city'}></input>
-          </div>
-          <div class="col-md-2">
-            <label className="form-label">Zip: </label>
-            <input className="form-control" value={'Zip'}></input>
-          </div>
-
-          </div>
-          <div className="row d-flex justify-content-center mt-5">
-          <div class="col-md-2">
-            <label className="form-label">Date of birth:</label>
-            <input className="form-control" value={patient.dob}></input>
-          </div>
-           <div class="col-md-2">
-            <label className="form-label">Worked Date:</label>
-            <input className="form-control" value={patient.worked_date}></input>
-          </div>
-          </div>
-          
+    <div className="container my-5">
+      {/* ================= Patient Info ================= */}
+      <div className="card shadow-sm mb-4">
+        <div className="card-header bg-light fw-bold">
+          Patient Information
         </div>
-      
 
-      <div className="d-flex justify-content-center fw-bolder fs-3">
-        <h1 className="mt-5 badge text-bg-secondary ">Insurance Info:</h1>
+        <div className="card-body">
+          <div className="row g-3">
+            <div className="col-md-4">
+              <label className="form-label">First Name</label>
+              <input className="form-control" value={firstName} readOnly />
+            </div>
+
+            <div className="col-md-4">
+              <label className="form-label">Last Name</label>
+              <input className="form-control" value={lastName} readOnly />
+            </div>
+
+            <div className="col-md-4">
+              <label className="form-label">Date of Birth</label>
+              <input className="form-control" value={patient.dob} readOnly />
+            </div>
+          </div>
+
+          <hr />
+
+          <div className="row g-3">
+            <div className="col-md-6">
+              <label className="form-label">Address</label>
+              <input
+                className="form-control"
+                value="Need to configure"
+                readOnly
+              />
+            </div>
+
+            <div className="col-md-3">
+              <label className="form-label">City</label>
+              <input className="form-control" value="City" readOnly />
+            </div>
+
+            <div className="col-md-3">
+              <label className="form-label">Zip</label>
+              <input className="form-control" value="Zip" readOnly />
+            </div>
+          </div>
+
+          <hr />
+
+          <div className="row g-3">
+            <div className="col-md-4">
+              <label className="form-label">Worked Date</label>
+              <input
+                className="form-control"
+                value={patient.worked_date}
+                readOnly
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="d-flex justify-content-center mt-5 gap-4">
-        <div class="row">
-          <div class="col-md-6">
-            <label className="form-label"> Insurance: </label>
-            <input className="form-control" value={patient.insurance}></input>
-          </div>
-          <div class="col-md-6">
-            <label className="form-label">Member ID </label>
-            <input className="form-control" value={patient.member_id}></input>
-          </div>
+      {/* ================= Insurance Info ================= */}
+      <div className="card shadow-sm mb-4">
+        <div className="card-header bg-light fw-bold">
+          Insurance Information
         </div>
-        <div class="col-md-1">
-          <label className="form-label">Status </label>
-          <input className="form-control" value={patient.status}></input>
+
+        <div className="card-body">
+          <div className="row g-3">
+            <div className="col-md-5">
+              <label className="form-label">Insurance</label>
+              <input
+                className="form-control"
+                value={patient.insurance}
+                readOnly
+              />
+            </div>
+
+            <div className="col-md-4">
+              <label className="form-label">Member ID</label>
+              <input
+                className="form-control"
+                value={patient.member_id}
+                readOnly
+              />
+            </div>
+
+            <div className="col-md-3">
+              <label className="form-label">Status</label>
+              <input
+                className="form-control"
+                value={patient.status}
+                readOnly
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="d-flex justify-content-center fw-bolder fs-3">
-        <h1 className="mt-5 badge text-bg-secondary ">Notes:</h1>
-      </div>
+      {/* ================= Notes ================= */}
+      <div className="card shadow-sm">
+        <div className="card-header bg-light fw-bold">Notes</div>
 
-      <div class="d-flex justify-content-center mt-2">
-        <div class="row">
-          
-            <label className="form-label"> Notes </label>
-            <textarea className="form-control" value={patient.notes}/>
-          
-          </div>
-          </div>
-      
-    </>
+        <div className="card-body">
+          <textarea
+            className="form-control"
+            rows="4"
+            value={patient.notes}
+            readOnly
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 

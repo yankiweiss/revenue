@@ -85,7 +85,12 @@ const getPatientByID = async (req, res) => {
   }
 };
 
-export { getAllPatients, updateFieldInPatients, getPatientByID };
+const duplicateDOB = () => {
+  const query = `SELECT * FROM patients
+`
+}
+
+export { getAllPatients, updateFieldInPatients, getPatientByID , duplicateDOB};
 
 
 
