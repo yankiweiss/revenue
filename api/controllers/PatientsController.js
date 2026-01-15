@@ -13,7 +13,14 @@ const getAllPatients = async (req, res) => {
         member_id,
         TO_CHAR(worked_date, 'MM/DD/YYYY') AS worked_date,
         TO_CHAR(dob, 'MM/DD/YYYY') AS dob,
-        notes
+        notes,"address",
+    "city",
+    "zip",
+    "provider_first_name",
+    "provider_last_name",
+    "npi_number",
+    "authorization_number",
+    "gender"
          FROM patients`;
 
     const results = await dataBasePool.query(getAllData);
