@@ -25,14 +25,24 @@ function ProfileDetail() {
     }
   }, [profileData]);
 
-  const handleUpdateField = (id ,field , newValue)  => {
-    fetch("https://revenue-two.vercel.app/api/patients/updateField", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({id, field, newValue }),
-    });
-
+  const handleUpdateField = async (id, field, newValue) => {
+  try {
+    const res = await fetch(
+      "https://revenue-two.vercel.app/api/patients/updateField",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, field, newValue }),
+      }
+    );
+    const data = await res.json();
+    console.log(data); // See success or error
+  } catch (err) {
+    console.error("Update failed:", err);
   }
+};
+
+ 
 
   return (
     <div className="container my-5">
