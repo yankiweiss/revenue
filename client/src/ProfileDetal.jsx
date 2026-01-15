@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 function ProfileDetail() {
 
 
+  const [messageData, setMessageData] = useState("");
+
   const { id } = useParams();
   const numericId = Number(id)
 
-  
+
 
   useEffect(() => {
     fetch(`https://revenue-two.vercel.app/api/patients/${numericId}`)
@@ -16,9 +18,9 @@ function ProfileDetail() {
       .then((patient) => setMessageData(patient));
   }, [numericId]);
 
-    const [messageData, setMessageData] = useState('');
 
- console.log(messageData)
+
+  console.log(messageData)
 
   return (
     <div className="container my-5">
@@ -28,19 +30,23 @@ function ProfileDetail() {
 
         <div className="card-body">
           <div className="row g-3">
-            <div className="col-md-4">
+            <div className="col-md-3">
               <label className="form-label">First Name</label>
-              <input className="form-control" readOnly />
+              <input className="form-control" value={messageData?.client ? messageData.client.split(" ")[0] : ""} readOnly />
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-3">
               <label className="form-label">Last Name</label>
-              <input className="form-control" readOnly />
+              <input className="form-control" value={messageData?.client ? messageData.client.split(" ")[1] : ""} readOnly />
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-3 ">
               <label className="form-label">Date of Birth</label>
               <input className="form-control" value={messageData.dob} readOnly />
+            </div>
+            <div className="col-md-3">
+              <label className="form-label">Gender</label>
+              <input className="form-control" readOnly />
             </div>
           </div>
 
@@ -104,6 +110,15 @@ function ProfileDetail() {
               <label className="form-label">Status</label>
               <input className="form-control" value={messageData.status} readOnly />
             </div>
+          </div>
+
+          <hr />
+          <div className="row g-3">
+            <div className="col-md-3">
+              <label className="form-label">Authorization Number</label>
+              <input className="form-control" readOnly />
+            </div>
+
           </div>
         </div>
       </div>
