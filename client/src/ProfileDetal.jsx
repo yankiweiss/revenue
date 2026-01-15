@@ -115,6 +115,7 @@ function ProfileDetail() {
                     city: e.target.value,
                   }))
                 }
+                 onBlur={(e) => handleUpdateField(profileData.id, 'city', e.target.value)}
               />
             </div>
 

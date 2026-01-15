@@ -52,8 +52,7 @@ const updateFieldInPatients = async (req, res) => {
     "provider_last_name",
     "npi_number",
     "authorization_number",
-    "gender",
-
+    "gender"
   ];
 
   if (!allowedFields.includes(field)) {
