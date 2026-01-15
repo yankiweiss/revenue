@@ -88,7 +88,7 @@ const getPatientByID = async (req, res) => {
   status,
   notes,
   TO_CHAR(worked_date, 'MM/DD/YYYY') AS worked_date,
-  TO_CHAR(dob, 'MM/DD/YYYY') AS dob
+  TO_CHAR(dob, 'MM/DD/YYYY') AS dob,
   address,
     city,
     zip,
