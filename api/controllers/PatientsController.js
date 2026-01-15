@@ -89,6 +89,14 @@ const getPatientByID = async (req, res) => {
   notes,
   TO_CHAR(worked_date, 'MM/DD/YYYY') AS worked_date,
   TO_CHAR(dob, 'MM/DD/YYYY') AS dob
+  address,
+    city,
+    zip,
+    provider_first_name,
+    provider_last_name,
+    npi_number,
+    authorization_number,
+    gender
         FROM patients
         WHERE id = $1
 
