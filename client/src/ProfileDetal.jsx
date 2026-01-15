@@ -3,14 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 
 function ProfileDetail() {
-
+  const [addInsuranceBtn, setAddInsuranceBtn] = useState(false);
 
   const [messageData, setMessageData] = useState("");
 
   const { id } = useParams();
-  const numericId = Number(id)
-
-
+  const numericId = Number(id);
 
   useEffect(() => {
     fetch(`https://revenue-two.vercel.app/api/patients/${numericId}`)
@@ -18,9 +16,7 @@ function ProfileDetail() {
       .then((patient) => setMessageData(patient));
   }, [numericId]);
 
-
-
-  console.log(messageData)
+  console.log(messageData);
 
   return (
     <div className="container my-5">
@@ -32,28 +28,47 @@ function ProfileDetail() {
           <div className="row g-3">
             <div className="col-md-3">
               <label className="form-label">First Name</label>
-              <input className="form-control" value={messageData?.client ? messageData.client.split(" ")[0] : ""} readOnly />
+              <input
+                className="form-control"
+                value={
+                  messageData?.client ? messageData.client.split(" ")[0] : ""
+                }
+                readOnly
+              />
             </div>
 
             <div className="col-md-3">
               <label className="form-label">Last Name</label>
-              <input className="form-control" value={messageData?.client ? messageData.client.split(" ")[1] : ""} readOnly />
+              <input
+                className="form-control"
+                value={
+                  messageData?.client ? messageData.client.split(" ")[1] : ""
+                }
+                readOnly
+              />
             </div>
 
-            <div className="col-md-3 ">
+            <div className="col-md-2 ">
               <label className="form-label">Date of Birth</label>
-              <input className="form-control" value={messageData.dob} readOnly />
+              <input
+                className="form-control"
+                value={messageData.dob}
+                readOnly
+              />
             </div>
-            <div className="col-md-3">
+            <div className="col-md-2">
               <label className="form-label">Gender</label>
-              <input className="form-control" readOnly />
+              <select class="form-select" aria-label="Default select example">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
             </div>
           </div>
 
           <hr />
 
           <div className="row g-3">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <label className="form-label">Address</label>
               <input
                 className="form-control"
@@ -76,7 +91,7 @@ function ProfileDetail() {
           <hr />
 
           <div className="row g-3">
-            <div className="col-md-4">
+            <div className="col-md-2">
               <label className="form-label">Worked Date</label>
               <input
                 className="form-control"
@@ -96,44 +111,132 @@ function ProfileDetail() {
 
         <div className="card-body">
           <div className="row g-3">
-            <div className="col-md-5">
+            <div className="col-md-2">
               <label className="form-label">Insurance</label>
-              <input className="form-control" value={messageData.insurance} readOnly />
+              <input
+                className="form-control"
+                value={messageData.insurance}
+                readOnly
+              />
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-2">
               <label className="form-label">Member ID</label>
-              <input className="form-control" value={messageData.member_id} readOnly />
+              <input
+                className="form-control"
+                value={messageData.member_id}
+                readOnly
+              />
             </div>
 
-            <div className="col-md-3">
+            <div className="col-md-1">
               <label className="form-label">Status</label>
-              <input className="form-control" value={messageData.status} readOnly />
+              <input
+                className="form-control"
+                value={messageData.status}
+                readOnly
+              />
             </div>
+            <div className="col-md-2">
+              {/* Empty label to align with other inputs */}
+              <label className="form-label">&nbsp;</label>
+
+              <div className="form-check d-flex align-items-center mt-1">
+                <input
+                  className="form-check-input me-2"
+                  type="radio"
+                  name="radioDefault"
+                  id="radioDefault1"
+                />
+                <label className="form-check-label" htmlFor="radioDefault1">
+                  Primary Insurance
+                </label>
+              </div>
+            </div>
+          </div>
+
+          {addInsuranceBtn === true && (
+            <>
+              <hr />
+              <div className="row g-3">
+                <div className="col-md-2">
+                  <label className="form-label">Insurance</label>
+                  <input
+                    className="form-control"
+                    value={messageData.second_insurance}
+                    readOnly
+                  />
+                </div>
+
+                <div className="col-md-2">
+                  <label className="form-label">Member ID</label>
+                  <input
+                    className="form-control"
+                    value={messageData.second_member_id}
+                    readOnly
+                  />
+                </div>
+
+                <div className="col-md-1">
+                  <label className="form-label">Status</label>
+                  <input
+                    className="form-control"
+                    value={messageData.second_status}
+                    readOnly
+                  />
+                </div>
+                <div className="col-md-2">
+                  {/* Empty label to align with other inputs */}
+                  <label className="form-label">&nbsp;</label>
+
+                  <div className="form-check d-flex align-items-center mt-1">
+                    <input
+                      className="form-check-input me-2"
+                      type="radio"
+                      name="radioDefault"
+                      id="radioDefault1"
+                    />
+                    <label className="form-check-label" htmlFor="radioDefault1">
+                      Primary Insurance
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          <hr />
+          <div className="col-md-2">
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => setAddInsuranceBtn(true)}
+            >
+              Add Insurance
+            </button>
           </div>
 
           <hr />
           <div className="row g-3">
-            <div className="col-md-3">
+            <div className="col-md-2">
               <label className="form-label">Authorization Number</label>
               <input className="form-control" readOnly />
             </div>
-
           </div>
         </div>
-      </div>
 
-      {/* ================= Notes ================= */}
-      <div className="card shadow-sm">
-        <div className="card-header bg-light fw-bold">Notes</div>
+        {/* ================= Notes ================= */}
+        <div className="card shadow-sm">
+          <div className="card-header bg-light fw-bold">Notes</div>
 
-        <div className="card-body">
-          <textarea
-            className="form-control"
-            rows="4"
-            value={messageData.notes}
-            readOnly
-          />
+          <div className="card-body">
+            <textarea
+              className="form-control"
+              rows="4"
+              value={messageData.notes}
+              readOnly
+            />
+          </div>
         </div>
       </div>
     </div>

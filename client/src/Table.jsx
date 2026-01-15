@@ -160,7 +160,7 @@ function Table() {
                     <td>
                       <textarea
                         rows="1"
-                        className="form-control form-control-sm border-0 bg-transparent"
+                        className="form-control form-control-sm  bg-transparent"
                         value={row.notes ?? ""}
                         onChange={(e) =>
                           setData((prev) =>
