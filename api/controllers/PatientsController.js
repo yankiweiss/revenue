@@ -38,6 +38,15 @@ const updateFieldInPatients = async (req, res) => {
     "worked_date",
     "dob",
     "notes",
+    "address",
+    "city",
+    "zip",
+    "provider_first_name",
+    "provider_last_name",
+    "npi_number",
+    "authorization_number",
+    "gender",
+
   ];
 
   if (!allowedFields.includes(field)) {
